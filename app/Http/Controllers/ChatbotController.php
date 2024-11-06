@@ -19,7 +19,7 @@ class ChatbotController extends Controller
     {
         // $mensaje = $request->input('mensaje');
         // $mensaje = "¿Que acciones puedes realizar?";
-        $mensaje = "Cuentame un chiste";
+        $mensaje = "Quien ha ganado las elecciones en estados unidos?";
         $respuesta = $this->openAIServices->consultarGPT4($mensaje);
 
         return response()->json(['respuesta' => $respuesta]);

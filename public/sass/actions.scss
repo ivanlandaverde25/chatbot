@@ -1,0 +1,11 @@
+
+
+/* Estilos de donde se muestran las acciones */
+.container-actions {
+    position: relative;
+    grid-area: actions;
+    border: 2px solid #bbbbbb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

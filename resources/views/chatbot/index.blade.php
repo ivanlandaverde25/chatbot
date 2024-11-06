@@ -13,6 +13,14 @@
 
         {{-- Estilos --}}
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+
+        {{-- Fuente --}}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        
+        {{-- Iconos --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>Chatbot</title>
     </head>
     <body>
@@ -34,12 +42,20 @@
                 
                 {{-- Encabezado de chatbot --}}
                 <div class="container-chat-header">
-                    Aquì va el nombre del botsito
+                    <h2>Boti</h2>
+                    <div class="header-activate-voice">
+                        Ingreso por voz
+                    </div>
                 </div>
 
                 {{-- Aqui se van a ir mostrando todos los mensajes que ingresen --}}
                 <div class="container-chat-message">
                     
+                    {{-- Mensaje por defecto que se muestra de las acciones que se pueden realizar --}}
+                    <div class="prompt prompt-IA">
+                        <p>Hola, soy Boti, estoy aquí para ayudar con tus tareas. Si necesitas ayuda con creación de expediente, agendamiento de citas o consultas médicas solo hazmelo saber.</p>
+                    </div>
+
                     {{-- Aqui se van a ir agregando todos los chat para hacer el efecto del scroll --}}
                     <div class="container-chat-message-scroll">
 
@@ -63,7 +79,19 @@
 
                 {{-- Aqui se muestran las interacciones para enviar mensajes o grabar audio --}}
                 <div class="container-chat-footer">
-                    Aqui van las acciones
+                    {{-- Aqui van las acciones --}}
+                    <input type="text" id="input-prompt" class="input-prompt" name="input-prompt">
+
+                    <div class="container-chat-footer-buttons">
+                        {{-- Boton mediante el cual se puede realizar el envio de la solicitud por texto --}}
+                        <button type="button" id="btnSendText" class="btn"><i class="fa-solid fa-paper-plane icon"></i></button>
+                        
+                        {{-- Boton mediante el cual se puede iniciar la grabación del audio --}}
+                        <button type="button" id="btnRecordAudio" class="btn"><i class="fa-solid fa-microphone icon"></i></button>
+                        
+                        {{-- Boton mediante el cual se puede detener la grabación de audio --}}
+                        <button type="button" id="btnstopdAudio" class="btn hidden"><i class="fa-solid fa-microphone-slash icon"></i></button>
+                    </div>
                 </div>
             </div>
         </div>

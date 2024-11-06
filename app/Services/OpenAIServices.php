@@ -23,7 +23,7 @@ class OpenAIServices
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->apiKey,
         ])->post('https://api.openai.com/v1/chat/completions', [
-            'model' => 'gpt-4-turbo', // Asegúrate de que esté disponible en tu cuenta
+            'model' => 'gpt-4-turbo',
             'messages' => [
                 ['role' => 'system', 'content' => "
                 Eres un asistente de salud virtual con el rol de 'AsistenteDeSalud' en nuestro sistema. Tienes los siguientes permisos y responsabilidades:
