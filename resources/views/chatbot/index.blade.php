@@ -141,37 +141,39 @@
         }
 
         async function consultarGPT4() {
+            
             const prompt = document.getElementById('input-prompt').value;
-            // const prompt = '¿Que hace un vampiro en un tractór?';
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            // responsiveVoice.speak(prompt, "Spanish Female");
 
-            try {
-                const response = await fetch('/consultar-gpt4', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: JSON.stringify({ prompt: prompt })
-                });
-
-                // console.log(response);
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.status} ${response.statusText}`);
-                    console.log('ERORRRR')
+                // const prompt = '¿Que hace un vampiro en un tractór?';
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                // responsiveVoice.speak(prompt, "Spanish Female");
+    
+                try {
+                    const response = await fetch('/consultar-gpt4', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                        body: JSON.stringify({ prompt: prompt })
+                    });
+    
+                    // console.log(response);
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.status} ${response.statusText}`);
+                        console.log('ERORRRR')
+                    }
+    
+                    const data = await response.json();
+    
+                    crearMensaje(data.respuesta, 2);
+                    console.log('La respuesta se agrego exitosamente')
+    
+    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Hubo un error al procesar tu solicitud.');
                 }
-
-                const data = await response.json();
-
-                crearMensaje(data.respuesta, 2);
-                console.log('La respuesta se agrego exitosamente')
-
-
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Hubo un error al procesar tu solicitud.');
-            }
         }
 
         // Ocultar el botón de inicio de audio
@@ -188,12 +190,17 @@
 
         btnSendText.addEventListener('click', () =>{
             const inputPrompt = document.getElementById('input-prompt');
-            const mensaje = inputPrompt.value;
 
-            crearMensaje(mensaje, 1);
-            consultarGPT4();
-            inputPrompt.value = '';
-            // responsiveVoice.speak(mensaje, "Spanish Female");
+            if ( inputPrompt.value != '' ){
+                const mensaje = inputPrompt.value;
+    
+                crearMensaje(mensaje, 1);
+                consultarGPT4();
+                inputPrompt.value = '';
+                // responsiveVoice.speak(mensaje, "Spanish Female");
+            } else {
+                alert('Por favor, escribe algo para enviaaaaaar.');
+            }
         });
 
 
