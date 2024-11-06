@@ -17,7 +17,9 @@ class ChatbotController extends Controller
 
     public function consulta(Request $request)
     {
-        $mensaje = $request->input('mensaje');
+        // $mensaje = $request->input('mensaje');
+        // $mensaje = "¿Que acciones puedes realizar?";
+        $mensaje = "Cuentame un chiste";
         $respuesta = $this->openAIServices->consultarGPT4($mensaje);
 
         return response()->json(['respuesta' => $respuesta]);

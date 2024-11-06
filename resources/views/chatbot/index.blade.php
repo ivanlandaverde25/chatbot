@@ -32,7 +32,7 @@
             <p id="respuesta"></p>
             <input type="text" id="texto" required>
             <br>
-            <button onclick="convertirTextoAVoz()">Escuchar</button>
+            <button onclick="">Escuchar</button>
             <br>
             <div class="">
                 <button type="button" id="btnGenerar">Generar respuesta con voz</button>
@@ -46,8 +46,11 @@
     <script>
         async function consultarGPT4() {
             // const prompt = document.getElementById('prompt').value;
-            const prompt = '¿Cuál es la mejor manera de comunicarse con un niño de 6 años?';
+            const prompt = '¿Que hace un vampiro en un tractór?';
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            responsiveVoice.speak(prompt, "Spanish Female");
+
+            console.log(JSON.stringify({ prompt: prompt }));
 
             try {
                 const response = await fetch('/consultar-gpt4', {
@@ -67,6 +70,8 @@
                 const data = await response.json();
                 document.getElementById('respuesta').innerText = data.respuesta;
                 console.log('La respuesta se agrego exitosamente')
+
+
             } catch (error) {
                 console.error('Error:', error);
                 alert('Hubo un error al procesar tu solicitud.');
