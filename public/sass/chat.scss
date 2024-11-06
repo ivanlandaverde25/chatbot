@@ -18,7 +18,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px 15px;
-    background-color: #023e7d;
+    background-color: #07beb8;
     color: #FAFAFA;
 }
 
@@ -35,6 +35,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     padding: 10px;
+    padding-bottom: 15px;
     row-gap: 10px;
     border-left: 1px solid gray;
     border-right: 1px solid gray;
@@ -48,15 +49,26 @@
 }
 
 .prompt {
-    border: 2px solid red;
+    // border: 2px solid red;
     max-width: 80%;
     border-radius: 10px;
     padding: 7px 10px;
-    text-align: left;
     color: #FAFAFA;
+    text-align: left;
 
+    & p {
+        width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    
     &-IA{
-        background-color: #023e7d;;
+        background-color: #5ca4a9;
+    }
+    
+    &-user{
+        background-color: #457b7f;
     }
 }
 
@@ -71,7 +83,7 @@
     padding: 5px 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: #023e7d;
+    background-color: #68d8d6;
 
     .input-prompt{
         width: 100%;
@@ -79,9 +91,13 @@
         border: none;
         outline: none;
         font-size: 1.1rem;
-        background-color: #1968b7;
-        color: #FAFAFA;
+        background-color: #c4fff9;
+        color: #333;
         padding: 6px 10px;
+
+        &::placeholder{
+            color: #439b9a;
+        }
     }
 
     &-buttons{
@@ -95,7 +111,7 @@
         .btn{
             width: 35px;
             height: 35px;
-            background-color: #1968b7;
+            background-color: #c4fff9;
             border: none;
             outline: none;
             cursor: pointer;
@@ -106,11 +122,32 @@
             &:hover{
                 background-color: #333;
             }
+
+            &-stop-record{
+                animation: opacity 2.5s linear infinite;
+            }
         }
 
         .icon{
-            color: #FAFAFA;
+            color: #439b9a;
             font-size: 1.1rem;
         }
     }
+}
+
+.div-general{
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    display: flex;
+}
+
+.flex-end{
+    justify-content: flex-end;
+}
+
+.flex-start{
+    justify-content: flex-start;
 }

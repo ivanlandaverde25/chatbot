@@ -15,6 +15,10 @@ body {
   display: none !important;
 }
 
+.block {
+  display: inline-block !important;
+}
+
 /* Estilos generales del contenedor */
 .container {
   position: relative;
@@ -25,6 +29,24 @@ body {
   grid-template: "header header" 8vh "actions chat" 92vh/65% 35%;
 }
 
+@keyframes opacity {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  33% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  66% {
+    transform: scale(0.9);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 /* Estilos del encabezado */
 .header {
   position: relative;
@@ -61,7 +83,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 5px 15px;
-  background-color: #023e7d;
+  background-color: #07beb8;
   color: #FAFAFA;
 }
 
@@ -78,6 +100,7 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 10px;
+  padding-bottom: 15px;
   row-gap: 10px;
   border-left: 1px solid gray;
   border-right: 1px solid gray;
@@ -91,15 +114,23 @@ body {
 }
 
 .prompt {
-  border: 2px solid red;
   max-width: 80%;
   border-radius: 10px;
   padding: 7px 10px;
-  text-align: left;
   color: #FAFAFA;
+  text-align: left;
+}
+.prompt p {
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 .prompt-IA {
-  background-color: #023e7d;
+  background-color: #5ca4a9;
+}
+.prompt-user {
+  background-color: #457b7f;
 }
 
 .container-chat-footer {
@@ -112,7 +143,7 @@ body {
   padding: 5px 10px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  background-color: #023e7d;
+  background-color: #68d8d6;
 }
 .container-chat-footer .input-prompt {
   width: 100%;
@@ -120,9 +151,12 @@ body {
   border: none;
   outline: none;
   font-size: 1.1rem;
-  background-color: #1968b7;
-  color: #FAFAFA;
+  background-color: #c4fff9;
+  color: #333;
   padding: 6px 10px;
+}
+.container-chat-footer .input-prompt::placeholder {
+  color: #439b9a;
 }
 .container-chat-footer-buttons {
   height: auto;
@@ -135,7 +169,7 @@ body {
 .container-chat-footer-buttons .btn {
   width: 35px;
   height: 35px;
-  background-color: #1968b7;
+  background-color: #c4fff9;
   border: none;
   outline: none;
   cursor: pointer;
@@ -146,9 +180,29 @@ body {
 .container-chat-footer-buttons .btn:hover {
   background-color: #333;
 }
+.container-chat-footer-buttons .btn-stop-record {
+  animation: opacity 2.5s linear infinite;
+}
 .container-chat-footer-buttons .icon {
-  color: #FAFAFA;
+  color: #439b9a;
   font-size: 1.1rem;
+}
+
+.div-general {
+  width: 100%;
+  height: auto;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.flex-start {
+  justify-content: flex-start;
 }
 
 /*# sourceMappingURL=style.css.map */

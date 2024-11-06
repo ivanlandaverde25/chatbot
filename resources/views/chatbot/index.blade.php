@@ -42,26 +42,26 @@
                 
                 {{-- Encabezado de chatbot --}}
                 <div class="container-chat-header">
-                    <h2>Boti</h2>
+                    <h3>Boti</h3>
                     <div class="header-activate-voice">
                         Ingreso por voz
                     </div>
                 </div>
 
                 {{-- Aqui se van a ir mostrando todos los mensajes que ingresen --}}
-                <div class="container-chat-message">
+                <div class="container-chat-message" id="container-chat-message">
                     
                     {{-- Mensaje por defecto que se muestra de las acciones que se pueden realizar --}}
                     <div class="prompt prompt-IA">
                         <p>Hola, soy Boti, estoy aquí para ayudar con tus tareas. Si necesitas ayuda con creación de expediente, agendamiento de citas o consultas médicas solo hazmelo saber.</p>
                     </div>
-
+                    
                     {{-- Aqui se van a ir agregando todos los chat para hacer el efecto del scroll --}}
-                    <div class="container-chat-message-scroll">
+                    <div class="container-chat-message-scroll" id="container-chat-message-scroll">
 
                         {{-- Datos de prueba --}}
-                        <h1>Prueba de Conversión de Texto a Voz</h1>
-                        <div>
+                        {{-- <h1>Prueba de Conversión de Texto a Voz</h1> --}}
+                        {{-- <div>
                             <input type="text" id="mensaje" name="mensaje" value="que dia es hoy?" disabled>
                             <p id="respuesta"></p>
                             <input type="text" id="texto" required>
@@ -73,14 +73,14 @@
                                 <p id="respuestaChatBot"></p>
                             </div>
                         </div>
-                        <button type="button" onclick="consultarGPT4();">Consultar</button>
+                        <button type="button" onclick="consultarGPT4();">Consultar</button> --}}
                     </div>
                 </div>
 
                 {{-- Aqui se muestran las interacciones para enviar mensajes o grabar audio --}}
                 <div class="container-chat-footer">
                     {{-- Aqui van las acciones --}}
-                    <input type="text" id="input-prompt" class="input-prompt" name="input-prompt">
+                    <input type="text" id="input-prompt" class="input-prompt" name="input-prompt" placeholder="Que queres maje...">
 
                     <div class="container-chat-footer-buttons">
                         {{-- Boton mediante el cual se puede realizar el envio de la solicitud por texto --}}
@@ -90,7 +90,7 @@
                         <button type="button" id="btnRecordAudio" class="btn"><i class="fa-solid fa-microphone icon"></i></button>
                         
                         {{-- Boton mediante el cual se puede detener la grabación de audio --}}
-                        <button type="button" id="btnstopdAudio" class="btn hidden"><i class="fa-solid fa-microphone-slash icon"></i></button>
+                        <button type="button" id="btnStopdAudio" class="btn btn-stop-record hidden"><i class="fa-solid fa-microphone-slash icon"></i></button>
                     </div>
                 </div>
             </div>
@@ -99,13 +99,52 @@
     </body>
 
     <script>
-        async function consultarGPT4() {
-            // const prompt = document.getElementById('prompt').value;
-            const prompt = '¿Que hace un vampiro en un tractór?';
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            responsiveVoice.speak(prompt, "Spanish Female");
+        const btnSendText = document.getElementById('btnSendText');
+        const btnRecordAudio = document.getElementById('btnRecordAudio');
+        const btnStopdAudio = document.getElementById('btnStopdAudio');
 
-            console.log(JSON.stringify({ prompt: prompt }));
+        // Funcion para hacer el scroll hacia abajo
+        function scrollToBottom() {
+            const chatBox = document.getElementById("container-chat-message");
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function crearMensaje( mensaje, usuario ) {
+
+            const divGeneral = document.createElement('div');
+            divGeneral.classList.add('div-general');
+
+            const miDiv = document.createElement('div');
+            miDiv.classList.add('prompt');
+
+            // validar si el mensaje es del usuario o del GPT
+            if ( usuario === 1 ){
+                // El usuairo 1 indica que es la persona
+                divGeneral.classList.add('flex-end');
+                miDiv.classList.add('prompt-user');
+            } else if ( usuario === 2 ){
+                // El usuario 2 indica que es el GPT
+                divGeneral.classList.add('flex-start');
+                miDiv.classList.add('prompt-IA');
+            }
+
+            divGeneral.appendChild(miDiv);
+
+            // Crear el párrafo y agregarle contenido
+            const miParrafo = document.createElement('p');
+            miParrafo.textContent = mensaje;
+            miDiv.appendChild(miParrafo);
+            // Añadir el div al body o a otro contenedor
+            contentChat = document.getElementById('container-chat-message-scroll');
+            contentChat.appendChild(divGeneral);
+            scrollToBottom();
+        }
+
+        async function consultarGPT4() {
+            const prompt = document.getElementById('input-prompt').value;
+            // const prompt = '¿Que hace un vampiro en un tractór?';
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            // responsiveVoice.speak(prompt, "Spanish Female");
 
             try {
                 const response = await fetch('/consultar-gpt4', {
@@ -117,13 +156,15 @@
                     body: JSON.stringify({ prompt: prompt })
                 });
 
+                // console.log(response);
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status} ${response.statusText}`);
                     console.log('ERORRRR')
                 }
 
                 const data = await response.json();
-                document.getElementById('respuesta').innerText = data.respuesta;
+
+                crearMensaje(data.respuesta, 2);
                 console.log('La respuesta se agrego exitosamente')
 
 
@@ -132,5 +173,29 @@
                 alert('Hubo un error al procesar tu solicitud.');
             }
         }
+
+        // Ocultar el botón de inicio de audio
+        btnRecordAudio.addEventListener('click', () =>{
+            btnRecordAudio.classList.add('hidden');
+            btnStopdAudio.classList.remove('hidden');
+        });
+
+        // Ocultar el botón de finalización de audio
+        btnStopdAudio.addEventListener('click', () =>{
+            btnRecordAudio.classList.remove('hidden');
+            btnStopdAudio.classList.add('hidden');
+        });
+
+        btnSendText.addEventListener('click', () =>{
+            const inputPrompt = document.getElementById('input-prompt');
+            const mensaje = inputPrompt.value;
+
+            crearMensaje(mensaje, 1);
+            consultarGPT4();
+            inputPrompt.value = '';
+            // responsiveVoice.speak(mensaje, "Spanish Female");
+        });
+
+
     </script>
 </html>

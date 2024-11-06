@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Chatbot;
 use App\Services\OpenAIServices;
 use Illuminate\Http\Request;
+use Laravel\Prompts\Prompt;
 
 class ChatbotController extends Controller
 {
@@ -15,22 +16,22 @@ class ChatbotController extends Controller
         $this->openAIServices = $openAIServices;
     }
 
-    public function consulta(Request $request)
-    {
-        // $mensaje = $request->input('mensaje');
-        // $mensaje = "¿Que acciones puedes realizar?";
-        $mensaje = "Quien ha ganado las elecciones en estados unidos?";
-        $respuesta = $this->openAIServices->consultarGPT4($mensaje);
-
-        return response()->json(['respuesta' => $respuesta]);
-    }
-    
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return view('chatbot.index');
+    }
+
+    // Metodo para consultar al GPT
+    public function consulta(Request $request)
+    {
+        $mensaje = $request->input('prompt');
+
+        $respuesta = $this->openAIServices->consultarGPT4($mensaje);
+
+        return response()->json(['respuesta' => $respuesta]);
     }
 
     /**
