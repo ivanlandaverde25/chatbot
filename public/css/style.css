@@ -1,0 +1,84 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/* Estilos generales del contenedor */
+.container {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    /* border: 2px solid red; */
+    background-color: #FAFAFA;
+    display: grid;
+    grid-template: 
+    "header header" 8vh
+    "actions chat" 92vh/
+    65% 35%;
+}
+
+/* Estilos del encabezado */
+.header {
+    position: relative;
+    grid-area: header;
+    border: 2px solid blue;
+}
+
+/* Estilos de donde se muestran las acciones */
+.container-actions {
+    position: relative;
+    grid-area: actions;
+    border: 2px solid purple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos del chat */
+.container-chat{
+    position: relative;
+    grid-area: chat;
+    border: 2px solid cyan;
+    padding: 15px;
+}
+
+/* Estilos del header del chat */
+.container-chat-header {
+    position: relative;
+    border: 1px solid gray;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 6vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 15px;
+    background-color: aliceblue;
+}
+
+/* Estilos del contenedor de los mensajes */
+.container-chat-message {
+    position: relative;
+    border: 2px solid black;
+    height: 75vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 10px;
+    row-gap: 10px;
+}
+
+.container-chat-message-scroll {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    /* border: 2px solid red; */
+    row-gap: 10px;
+}

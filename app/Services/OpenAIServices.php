@@ -9,7 +9,6 @@ class OpenAIServices
     // protected $client;
     protected $apiKey;
 
-
     /**
      * Create a new class instance.
      */
