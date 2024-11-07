@@ -34,7 +34,8 @@
 
             {{-- Contenedor donde se van a ir mostrando todas las acciones --}}
             <div class="container-actions">
-                <p>Aqui se muestran todas las acciones</p>
+                {{-- <p>Aqui se muestran todas las acciones</p> --}}
+                <img src="{{asset('images/Logo_Boti.png')}}" alt="" class="img-logo">
             </div>
 
             {{-- Contenedor donde se va ir mostrando todos los mensajes que se vayan enviando y generando --}}
@@ -88,6 +89,7 @@
         const btnRecordAudio = document.getElementById('btnRecordAudio');
         const btnStopdAudio = document.getElementById('btnStopdAudio');
         const inputMessage = document.getElementById('input-prompt');
+        let mensajesGenrados = [];
 
         // Funcion para hacer el scroll hacia abajo
         function scrollToBottom() {
@@ -97,9 +99,11 @@
 
         function crearMensaje( mensaje, usuario ) {
 
+            // Generar el div general donde se mostrara el mensaje
             const divGeneral = document.createElement('div');
             divGeneral.classList.add('div-general');
 
+            // Agregar el div especifico al que se le agregaran los estilos
             const miDiv = document.createElement('div');
             miDiv.classList.add('prompt');
 
@@ -108,36 +112,41 @@
                 // El usuairo 1 indica que es la persona
                 divGeneral.classList.add('flex-end');
                 miDiv.classList.add('prompt-user');
+
+                // Crear el parrafo para mostrar el texto
+                const miParrafo = document.createElement('p');
+                miParrafo.textContent = mensaje;
+                miDiv.appendChild(miParrafo);
+                
+                // Añadir el div al body o a otro contenedor
+                contentChat = document.getElementById('container-chat-message-scroll');
+                contentChat.appendChild(divGeneral);
+                
             } else if ( usuario === 2 ){
                 // El usuario 2 indica que es el GPT
                 divGeneral.classList.add('flex-start');
                 miDiv.classList.add('prompt-IA');
+                
+                // Crear el parrafo para mostrar el texto y dar el efecto de escritura
+                const miParrafo = document.createElement('p');
+                const typedResponse = new Typed(miParrafo, {
+                        strings: [
+                        mensaje,
+                    ],
+                    typeSpeed: 10,
+                    loop: false,
+                    loopCount: Infinity,
+                    showCursor: false,
+                    autoInsertCss: true,
+                });
+                miDiv.appendChild(miParrafo);
+                
+                // Añadir el div al body o a otro contenedor
+                contentChat = document.getElementById('container-chat-message-scroll');
+                contentChat.appendChild(divGeneral);
             }
 
             divGeneral.appendChild(miDiv);
-
-            // Crear el párrafo y agregarle contenido
-            const miParrafo = document.createElement('p');
-            // Prueba de Typed js
-            // miParrafo.id = 'responseGPT4';
-            // alert(miParrafo.id);
-            // const typedResponse = new Typed('#responseGPT4', {
-            //     strings: [
-            //         mensaje,
-            //     ],
-            //     typeSpeed: 10,
-            //     loop: false,
-            //     loopCount: Infinity,
-            //     showCursor: false,
-            //     autoInsertCss: true,
-            // });
-
-
-            miParrafo.textContent = mensaje;
-            miDiv.appendChild(miParrafo);
-            // Añadir el div al body o a otro contenedor
-            contentChat = document.getElementById('container-chat-message-scroll');
-            contentChat.appendChild(divGeneral);
             scrollToBottom();
         }
 
@@ -158,6 +167,7 @@
                     },
                     body: JSON.stringify({ prompt: prompt })
                 });
+                inputMessage.value = '';
 
                 // console.log(response);
                 if (!response.ok) {
@@ -210,7 +220,7 @@
                 e.preventDefault();
                 crearMensaje(inputMessage.value, 1); //
                 await consultarGPT4();
-                inputMessage.value = '';
+                // inputMessage.value = '';
             }
         });
 

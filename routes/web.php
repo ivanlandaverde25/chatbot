@@ -13,3 +13,5 @@ Route::get('/chatbot', [ChatbotController::class, 'index']);
 Route::post('/consultar-gpt4', [ChatbotController::class, 'consulta']);
 // Route::match(['get','post'],'/consulta-gpt', [ChatbotController::class, 'consulta']);
 
+// Ruta para guardar los mensajes generados
+Route::post('/guardar-mensajes', [ChatbotController::class, 'guardarMensajes']);

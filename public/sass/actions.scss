@@ -6,6 +6,11 @@
     grid-area: actions;
     border: 2px solid #bbbbbb;
     display: flex;
+    flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+
+    .img-logo{
+        width: 15rem;
+    }
 }
