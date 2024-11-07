@@ -11,8 +11,4 @@ document.addEventListener('DOMContentLoaded', (e) => {
             alert("Debe ingresar un texto");
         }
     }
-    
-    
-    
-
 });

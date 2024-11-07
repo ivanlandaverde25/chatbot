@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatbotController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,3 +16,6 @@ Route::post('/consultar-gpt4', [ChatbotController::class, 'consulta']);
 
 // Ruta para guardar los mensajes generados
 Route::post('/guardar-mensajes', [ChatbotController::class, 'guardarMensajes']);
+
+// Ruta para convertir el audio a texto
+Route::post('/transcribe-audio', [ChatbotController::class, 'transcripcionAudio']);

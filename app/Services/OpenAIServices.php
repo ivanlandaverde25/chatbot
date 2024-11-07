@@ -36,7 +36,7 @@ class OpenAIServices
                     No debes agregar ningun texto extra al mensaje y luego debes solicitar los siguientes datos:
                         - Nombre completo
                         - Edad
-                    Primero solicita el campo de nombre, segundo solicita la edad.
+                    Primero solicita el primer campo: nombre, haz una pausa y espera la respuesta del usuario y luego pide el segundo campo: la edad.
 
                     Por favor, responde siempre siguiendo estas capacidades y actúa de forma ética y profesional en la gestión de los datos de los pacientes.
                     Si el usuario pregunta una acción diferente a estas, muestra las acciones disponibles para las cuales puedes ayudarle.

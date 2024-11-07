@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Chatbot;
 use App\Services\OpenAIServices;
+use Google\Cloud\Speech\V1\RecognitionAudio;
+use Google\Cloud\Speech\V1\RecognitionConfig;
+use Google\Cloud\Speech\V1\SpeechClient;
 use Illuminate\Http\Request;
 use Laravel\Prompts\Prompt;
 
@@ -32,6 +35,36 @@ class ChatbotController extends Controller
         $respuesta = $this->openAIServices->consultarGPT4($mensaje);
 
         return response()->json(['respuesta' => $respuesta]);
+    }
+
+    // Metodo para realizar la transcripcion del audio
+    public function transcripcionAudio(Request $request){
+
+        $audioFile = $request->file('audio');
+        $audioPath = $audioFile->store('audio', 'public');
+        $audioContent = file_get_contents(storage_path("app/public/{$audioPath}"));
+
+        $speech = new SpeechClient([
+            'credentials' => json_decode(file_get_contents(storage_path('app/google-cloud.json')), true)
+        ]);
+
+        $config = new RecognitionConfig([
+            'encoding' => RecognitionConfig\AudioEncoding::LINEAR16,
+            // 'sample_rate_hertz' => 16000,
+            'language_code' => 'en-US',
+        ]);
+        $audio = new RecognitionAudio(['content' => $audioContent]);
+
+        $response = $speech->recognize($config, $audio);
+        $transcription = '';
+
+        foreach ($response->getResults() as $result) {
+            $transcription .= $result->getAlternatives()[0]->getTranscript();
+        }
+
+        $speech->close();
+
+        return response()->json(['transcription' => $transcription]);
     }
 
     /**

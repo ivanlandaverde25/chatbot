@@ -90,11 +90,57 @@
         const btnStopdAudio = document.getElementById('btnStopdAudio');
         const inputMessage = document.getElementById('input-prompt');
         let mensajesGenrados = [];
+        let mediaRecorder;
+        let audioChunks = [];
 
         // Funcion para hacer el scroll hacia abajo
         function scrollToBottom() {
             const chatBox = document.getElementById("container-chat-message");
             chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Funcion para iniciar el grabado de audio y transcribirlo
+        btnRecordAudio.addEventListener('click', async (e) =>{
+            console.log('Compatibilidad de getUserMedia:', !!navigator.mediaDevices?.getUserMedia);
+            
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                audioChunks = [];
+                uploadAudio(audioBlob);
+            };
+
+            mediaRecorder.start();
+        });
+
+        // Funcion para detener el grabado del audio
+        btnStopdAudio.addEventListener('click', () => {
+            mediaRecorder.stop();
+        });
+
+        // Funcion para subir el audio
+        async function uploadAudio(audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob);
+
+            const response = await fetch('/transcribe-audio', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+            // document.getElementById('transcription').textContent = data.transcription;
+            console.log(data);
+            console.log('La transcripcion es:' + data.transcription);
         }
 
         // Funcion para almacenar dentro del arreglo los mensajes que se vayan generado
