@@ -97,6 +97,18 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
+        // Funcion para almacenar dentro del arreglo los mensajes que se vayan generado
+        function guardarMensajes( mensaje, usuario) {
+            let data = {
+                mensaje: mensaje,
+                usuario: usuario
+            };
+
+            mensajesGenrados.push(JSON.parse(data));
+            console.log(mensajesGenrados);
+        }
+
+        // Funcion que se utiliza dentro de consultar GPT4 para mostrar las respuestas en pantalla
         function crearMensaje( mensaje, usuario ) {
 
             // Generar el div general donde se mostrara el mensaje
@@ -140,16 +152,31 @@
                     autoInsertCss: true,
                 });
                 miDiv.appendChild(miParrafo);
-                
+
                 // Añadir el div al body o a otro contenedor
                 contentChat = document.getElementById('container-chat-message-scroll');
                 contentChat.appendChild(divGeneral);
+                responsiveVoice.speak(mensaje, "Spanish Female");
             }
 
             divGeneral.appendChild(miDiv);
             scrollToBottom();
         }
 
+        // Funcion para abrir el expediente
+        function abrirExpediente(){
+            // alert('Si funciono');
+            let contador = 1;
+
+            while ( contador <= 3 ){
+                if ( contador === 1 ){
+                    let mensaje = 'Ingresa tu nombre completo';
+                    crearMensaje(mensaje, 2);
+                }
+            }
+        }
+
+        // Funcion para realizar la peticion a GPT4 y traer la respuesta
         async function consultarGPT4() {
             
             const prompt = document.getElementById('input-prompt').value;
@@ -178,6 +205,13 @@
                 const data = await response.json();
 
                 crearMensaje(data.respuesta, 2);
+
+                if (data.respuesta.match('abrir tu expediente')){
+                    console.log('Si detecto la funcion');
+                    // setTimeout(() => {
+                    //     abrirExpediente();
+                    // }, 3000);
+                }
                 console.log('La respuesta se agrego exitosamente')
 
 
