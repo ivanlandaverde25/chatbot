@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', (e) => {
-    console.log('Detalles');
 
     // Funcion para convertir texto a voz
     function convertirTextoAVoz() {
@@ -14,16 +13,16 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
     
     // Mostrar texto para el chatbot
-    let typedResponse = new Typed('#respuesta', {
-        strings: [
-            'texto de ejemplo donde se simula la resputa del chatbot a mostrar dentro del chat'
-        ],
-        typeSpeed: 10,
-        loop: false,
-        loopCount: Infinity,
-        showCursor: false,
-        autoInsertCss: true,
-    });
+    // let typedResponse = new Typed('#respuesta', {
+    //     strings: [
+    //         'texto de ejemplo donde se simula la resputa del chatbot a mostrar dentro del chat'
+    //     ],
+    //     typeSpeed: 10,
+    //     loop: false,
+    //     loopCount: Infinity,
+    //     showCursor: false,
+    //     autoInsertCss: true,
+    // });
     
     // Funcion para generar una respuesta aleatoria al chatbot
     // let generarRespuesta = () => {
@@ -45,8 +44,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
     //     responsiveVoice.speak(text, "Spanish Female", {rate: 0.9});
     // };
         
-    let btnGenerar = document.getElementById('btnGenerar');
-    btnGenerar.addEventListener('click', () => {
-        // generarRespuesta();
-    });
+    // let btnGenerar = document.getElementById('btnGenerar');
+    // btnGenerar.addEventListener('click', () => {
+    //     // generarRespuesta();
+    // });
 });

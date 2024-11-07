@@ -59,21 +59,6 @@
                     {{-- Aqui se van a ir agregando todos los chat para hacer el efecto del scroll --}}
                     <div class="container-chat-message-scroll" id="container-chat-message-scroll">
 
-                        {{-- Datos de prueba --}}
-                        {{-- <h1>Prueba de Conversión de Texto a Voz</h1> --}}
-                        {{-- <div>
-                            <input type="text" id="mensaje" name="mensaje" value="que dia es hoy?" disabled>
-                            <p id="respuesta"></p>
-                            <input type="text" id="texto" required>
-                            <br>
-                            <button onclick="">Escuchar</button>
-                            <br>
-                            <div class="">
-                                <button type="button" id="btnGenerar">Generar respuesta con voz</button>
-                                <p id="respuestaChatBot"></p>
-                            </div>
-                        </div>
-                        <button type="button" onclick="consultarGPT4();">Consultar</button> --}}
                     </div>
                 </div>
 
@@ -102,6 +87,7 @@
         const btnSendText = document.getElementById('btnSendText');
         const btnRecordAudio = document.getElementById('btnRecordAudio');
         const btnStopdAudio = document.getElementById('btnStopdAudio');
+        const inputMessage = document.getElementById('input-prompt');
 
         // Funcion para hacer el scroll hacia abajo
         function scrollToBottom() {
@@ -132,6 +118,21 @@
 
             // Crear el párrafo y agregarle contenido
             const miParrafo = document.createElement('p');
+            // Prueba de Typed js
+            // miParrafo.id = 'responseGPT4';
+            // alert(miParrafo.id);
+            // const typedResponse = new Typed('#responseGPT4', {
+            //     strings: [
+            //         mensaje,
+            //     ],
+            //     typeSpeed: 10,
+            //     loop: false,
+            //     loopCount: Infinity,
+            //     showCursor: false,
+            //     autoInsertCss: true,
+            // });
+
+
             miParrafo.textContent = mensaje;
             miDiv.appendChild(miParrafo);
             // Añadir el div al body o a otro contenedor
@@ -144,36 +145,36 @@
             
             const prompt = document.getElementById('input-prompt').value;
 
-                // const prompt = '¿Que hace un vampiro en un tractór?';
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                // responsiveVoice.speak(prompt, "Spanish Female");
-    
-                try {
-                    const response = await fetch('/consultar-gpt4', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        body: JSON.stringify({ prompt: prompt })
-                    });
-    
-                    // console.log(response);
-                    if (!response.ok) {
-                        throw new Error(`Error: ${response.status} ${response.statusText}`);
-                        console.log('ERORRRR')
-                    }
-    
-                    const data = await response.json();
-    
-                    crearMensaje(data.respuesta, 2);
-                    console.log('La respuesta se agrego exitosamente')
-    
-    
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Hubo un error al procesar tu solicitud.');
+            // const prompt = '¿Que hace un vampiro en un tractór?';
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            // responsiveVoice.speak(prompt, "Spanish Female");
+
+            try {
+                const response = await fetch('/consultar-gpt4', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: JSON.stringify({ prompt: prompt })
+                });
+
+                // console.log(response);
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status} ${response.statusText}`);
+                    console.log('ERORRRR')
                 }
+
+                const data = await response.json();
+
+                crearMensaje(data.respuesta, 2);
+                console.log('La respuesta se agrego exitosamente')
+
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Hubo un error al procesar tu solicitud.');
+            }
         }
 
         // Ocultar el botón de inicio de audio
@@ -203,6 +204,15 @@
             }
         });
 
+        // Funcion para detonar el envio de mensaje por medio de la tecla enter
+        inputMessage.addEventListener('keydown', async (e) =>{
+            if ( e.key === 'Enter'){
+                e.preventDefault();
+                crearMensaje(inputMessage.value, 1); //
+                await consultarGPT4();
+                inputMessage.value = '';
+            }
+        });
 
     </script>
 </html>
