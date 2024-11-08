@@ -31,6 +31,7 @@ body {
     "header header" 8vh
     "actions chat" 92vh/
     65% 35%;
+    overflow: hidden;
 }
 
 @keyframes opacity {
@@ -54,4 +55,6 @@ body {
 
 @import 'header';
 @import 'actions';
+@import 'form-components';
+@import 'form-create';
 @import 'chat';

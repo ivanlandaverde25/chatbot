@@ -36,6 +36,68 @@
             <div class="container-actions">
                 {{-- <p>Aqui se muestran todas las acciones</p> --}}
                 <img src="{{asset('images/Logo_Boti.png')}}" alt="" class="img-logo">
+                
+                {{-- Formulario para la creacion del expediente --}}
+                <div class="form-create-expediente" id="formCreateExpediente">
+                    
+                    {{-- Encabezado del formulario --}}
+                    <div class="form-create-expediente-header">
+                        <div class="logo" style="display: flex; justify-content:center; align-items: center;">
+                            <img src="{{asset('images/Logo_Boti.png')}}" alt="" style="width: 5rem;">
+                        </div>
+                        <div class="title-form" class="title-form">
+                            <h3>Formulario para la creacion del expediente</h3>
+                        </div>
+                        <div class="alert alert-info">
+                            <strong>Importante:</strong>
+                            <ul class="alert-list">
+                                <li class="alert-list-item">• Completa la siguiente información para aperturar tu expediente.</li>
+                                <li class="alert-list-item">• Toda tu informacion es completamente confidencial.</li>
+                                <li class="alert-list-item">• Tu expediente servirá para tus proximas citas y consultas.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {{-- Cuerpo del formulario --}}
+                    <div class="form-create-expediente-body">
+                        
+                        <form action="" class="form-create-exp">
+                            {{-- Fila 1 del formulario --}}
+                            <div class="fila fila1">
+                                
+                                {{-- Campo para nombres --}}
+                                <div class="block">
+                                    <input type="text" autocomplete="off" id="inputNombres" class="input-form" name="nombres" required/>
+                                    <label class = "label-form">Nombres</label>
+                                    <span></span>
+                                </div>
+
+                                {{-- Campo para apellidos --}}
+                                <div class="block">
+                                    <input type="text" autocomplete="off" id="inputApellidos" class="input-form" name="apellidos" required/>
+                                    <label class = "label-form">Apellidos</label>
+                                    <span></span>
+                                </div>
+                            </div>
+    
+                            {{-- Fila 2 del formulario --}}
+                            <div class="fila fila2">
+                                <div class="block">
+                                    <input type="text" autocomplete="off" id="inputDireccion" class="input-form" name = "direccion" required/>
+                                    <label class = "label-form">Direccion</label>
+                                    <span></span>
+                                </div>
+                            </div>
+
+                            {{-- Footer del formulario --}}
+                            <div class="form-create-expediente-footer">
+                                <button type="button">Guardar</button>
+                                <button type="button">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
             </div>
 
             {{-- Contenedor donde se va ir mostrando todos los mensajes que se vayan enviando y generando --}}
@@ -212,14 +274,10 @@
         // Funcion para abrir el expediente
         function abrirExpediente(){
             // alert('Si funciono');
-            let contador = 1;
+            console.log('Aqui se abre el expediente');
+            let formCreateExpediente = document.getElementById('formCreateExpediente');
 
-            while ( contador <= 3 ){
-                if ( contador === 1 ){
-                    let mensaje = 'Ingresa tu nombre completo';
-                    crearMensaje(mensaje, 2);
-                }
-            }
+            formCreateExpediente.classList.add('show-form');
         }
 
         // Funcion para realizar la peticion a GPT4 y traer la respuesta
@@ -254,9 +312,9 @@
 
                 if (data.respuesta.match('abrir tu expediente')){
                     console.log('Si detecto la funcion');
-                    // setTimeout(() => {
-                    //     abrirExpediente();
-                    // }, 3000);
+                    setTimeout(() => {
+                        abrirExpediente();
+                    }, 3000);
                 }
                 console.log('La respuesta se agrego exitosamente')
 

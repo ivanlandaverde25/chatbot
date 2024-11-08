@@ -1,0 +1,71 @@
+@mixin alert($background-color: #8fc5f1, $text-color: #507899){
+    background-color: #{$background-color};
+    color: #{$text-color};
+}
+
+.form-create-expediente {
+    width: 95%;
+    margin: auto;
+    max-height: 88vh;
+    border: 1px solid #DDDDDD;
+    color: #333;
+    transition: .8s .01s ease-in-out;
+    position: absolute;
+    transform: translateY(300%);
+    background-color: #FAFAFA;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    row-gap: 20px;
+    
+    &-header {
+        display: flex;
+        flex-flow: column nowrap;
+        row-gap: 15px;
+
+        .title-form{
+            width: 100%;
+            height: auto;
+            color: #439b9a;
+            border-bottom: 2px solid #439b9a;
+            padding-bottom: 5px;
+        }
+    }
+
+    .alert {
+        @include alert(#e6f4ff, #507899);
+        border-radius: 10px;
+        padding: 15px 25px;
+        font-size: 0.9rem;
+        
+        &-list {
+            list-style: none;
+        }
+    }
+
+    &-body {
+        width: 100%;
+        height: auto;
+        // border: 1px solid green;
+
+        .form-create-exp {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            row-gap: 20px;
+        }
+
+        .fila {
+            width: 100%;
+            // border: 1px solid blue;
+            display: flex;
+            column-gap: 20px;
+        }
+    }
+}
+
+.show-form {
+    transform: translateY(0%);
+}
+
