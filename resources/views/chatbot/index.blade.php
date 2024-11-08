@@ -59,23 +59,24 @@
                     </div>
 
                     {{-- Cuerpo del formulario --}}
-                    <div class="form-create-expediente-body">
+                    <div class="form-create-expediente-body" id="formCreateExpedienteBody">
                         
-                        <form action="" class="form-create-exp">
+                        <form action="" class="form-create-exp" id="formCreateExp">
+
                             {{-- Fila 1 del formulario --}}
                             <div class="fila fila1">
                                 
                                 {{-- Campo para nombres --}}
                                 <div class="block">
                                     <input type="text" autocomplete="off" id="inputNombres" class="input-form" name="nombres" required/>
-                                    <label class = "label-form">Nombres</label>
+                                    <label class = "label-form">Nombres *</label>
                                     <span></span>
                                 </div>
 
                                 {{-- Campo para apellidos --}}
                                 <div class="block">
                                     <input type="text" autocomplete="off" id="inputApellidos" class="input-form" name="apellidos" required/>
-                                    <label class = "label-form">Apellidos</label>
+                                    <label class = "label-form">Apellidos *</label>
                                     <span></span>
                                 </div>
                             </div>
@@ -84,15 +85,74 @@
                             <div class="fila fila2">
                                 <div class="block">
                                     <input type="text" autocomplete="off" id="inputDireccion" class="input-form" name = "direccion" required/>
-                                    <label class = "label-form">Direccion</label>
+                                    <label class = "label-form">Direccion *</label>
+                                    <span></span>
+                                </div>
+                            </div>
+
+                            {{-- Fila 3 del formulario --}}
+                            <div class="fila fila3">
+                                
+                                {{-- Campo para tipo de documento --}}
+                                <div class="block">
+                                    <input type="text" list="listTipoDocumento" autocomplete="off" id="inputTipoDocumento" class="input-form" name="tipo_documento" required/>
+                                    <datalist id="listTipoDocumento">
+                                        <option value="DUI">Documento Único de Identidad</option>
+                                        <option value="Pasaporte">Pasaporte</option>
+                                        <option value="NUI">Número Único de Identidad</option>
+                                    </datalist>
+                                    <label class = "label-form">Tipo de documento *</label>
+                                    <span></span>
+                                </div>
+
+                                {{-- Campo para Numero de documento --}}
+                                <div class="block">
+                                    <input type="text" autocomplete="off" id="inputNumeroDocumento" class="input-form" name="numero_documento" required/>
+                                    <label class = "label-form">Número de documento *</label>
+                                    <span></span>
+                                </div>
+                            </div>
+
+                            {{-- Fila 4 del formulario --}}
+                            <div class="fila fila3">
+                                
+                                {{-- Campo para correo --}}
+                                <div class="block">
+                                    <input type="email" autocomplete="off" id="inputCorreo" class="input-form" name="correo" required/>
+                                    <label class = "label-form">Correo *</label>
+                                    <span></span>
+                                </div>
+
+                                {{-- Campo para Numero de telefono --}}
+                                <div class="block">
+                                    <input type="text" autocomplete="off" id="inputNumeroTelefono" class="input-form" name="numero_telefono" required/>
+                                    <label class = "label-form">Número de teléfono *</label>
+                                    <span></span>
+                                </div>
+                            </div>
+
+                            {{-- Fila 5 del formulario --}}
+                            <div class="fila fila4">
+                                
+                                {{-- Campo para fecha de nacimiento --}}
+                                <div class="block">
+                                    <input type="date" autocomplete="off" id="inputFechaNacimiento" class="input-form" name="fecha_nacimiento" required/>
+                                    <label class = "label-form">Fecha de nacimiento *</label>
+                                    <span></span>
+                                </div>
+
+                                {{-- Campo para antecedentes --}}
+                                <div class="block">
+                                    <input type="text" autocomplete="off" id="inputAntecedentes" class="input-form" name="antecedentes" required/>
+                                    <label class = "label-form">Antecedentes</label>
                                     <span></span>
                                 </div>
                             </div>
 
                             {{-- Footer del formulario --}}
                             <div class="form-create-expediente-footer">
-                                <button type="button">Guardar</button>
-                                <button type="button">Cancelar</button>
+                                <button type="submit" class="button-form-create button-form-create-submit" id="buttonFormCreateExp"><i class="fa-regular fa-floppy-disk"></i> Guardar</button>
+                                <button type="button" class="button-form-create button-form-create-cancel"><i class="fa-regular fa-circle-xmark"></i> Cancelar</button>
                             </div>
                         </form>
                     </div>
@@ -154,6 +214,9 @@
         let mensajesGenrados = [];
         let mediaRecorder;
         let audioChunks = [];
+
+        // Formulario para creacion de paciente
+        let formCreateExp = document.getElementById('formCreateExp');
 
         // Funcion para hacer el scroll hacia abajo
         function scrollToBottom() {
@@ -273,10 +336,11 @@
 
         // Funcion para abrir el expediente
         function abrirExpediente(){
-            // alert('Si funciono');
             console.log('Aqui se abre el expediente');
             let formCreateExpediente = document.getElementById('formCreateExpediente');
+            let formCreateExpedienteBody = document.getElementById('formCreateExpedienteBody');
 
+            formCreateExpedienteBody.classList.remove('hidden');
             formCreateExpediente.classList.add('show-form');
         }
 
@@ -314,7 +378,7 @@
                     console.log('Si detecto la funcion');
                     setTimeout(() => {
                         abrirExpediente();
-                    }, 3000);
+                    }, 2000);
                 }
                 console.log('La respuesta se agrego exitosamente')
 

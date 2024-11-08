@@ -81,7 +81,10 @@ body {
 .input-form {
   position: relative;
   border: none;
-  border-bottom: 3px solid #b9b9b9;
+  border-bottom: 3px solid #a9caca;
+  border-top: 1px solid #439b9a;
+  border-left: 1px solid #439b9a;
+  border-right: 1px solid #439b9a;
   padding: 3px 8px;
   padding-top: 18px;
   outline: none;
@@ -132,9 +135,8 @@ span {
   max-height: 88vh;
   border: 1px solid #DDDDDD;
   color: #333;
-  transition: 0.8s 0.01s ease-in-out;
+  transition: 1.5s 0.01s ease-in-out;
   position: absolute;
-  transform: translateY(300%);
   background-color: #FAFAFA;
   padding: 20px;
   border-radius: 10px;
@@ -178,6 +180,43 @@ span {
   width: 100%;
   display: flex;
   column-gap: 20px;
+}
+.form-create-expediente-footer {
+  width: 100%;
+  border: 1px solid red;
+  border: #DDDDDD;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0px;
+  border-radius: 5px;
+  column-gap: 10px;
+}
+.form-create-expediente-footer .button-form-create {
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  width: 8rem;
+  cursor: pointer;
+}
+.form-create-expediente-footer .button-form-create-submit {
+  background-color: #439b9a;
+  color: #fff;
+}
+.form-create-expediente-footer .button-form-create-submit:hover {
+  background-color: #337a91;
+}
+.form-create-expediente-footer .button-form-create-cancel {
+  background-color: transparent;
+  color: #439b9a;
+  border: 1px solid #439b9a;
+}
+.form-create-expediente-footer .button-form-create-cancel:hover {
+  background-color: #439b9a;
+  color: #fff;
 }
 
 .show-form {

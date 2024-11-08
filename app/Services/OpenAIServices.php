@@ -33,10 +33,7 @@ class OpenAIServices
 
                     Cuando detectes la palabra clave 'Abrir expediente' o 'Aperturar expediente' o 'Hoja de identificación' o 'Generar hoja de identificación', debes contestar al usuario lo siguiente:
                         - ¡Claro, con gusto te ayudaré a abrir tu expediente médico! Comencemos con algunos datos importantes.
-                    No debes agregar ningun texto extra al mensaje y luego debes solicitar los siguientes datos:
-                        - Nombre completo
-                        - Edad
-                    Primero solicita el primer campo: nombre, haz una pausa y espera la respuesta del usuario y luego pide el segundo campo: la edad.
+                    No debes agregar ningun texto extra al mensaje.
 
                     Por favor, responde siempre siguiendo estas capacidades y actúa de forma ética y profesional en la gestión de los datos de los pacientes.
                     Si el usuario pregunta una acción diferente a estas, muestra las acciones disponibles para las cuales puedes ayudarle.
